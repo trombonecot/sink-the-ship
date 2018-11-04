@@ -1,3 +1,4 @@
 export default {
-	board: []
+	board: [],
+	steps: 0
 };

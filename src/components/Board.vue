@@ -1,17 +1,17 @@
 <template>
 	<div>
 
+		STEPS: {{game.steps}}
 
-		HOLA:{{board}}
-		<!---<table>
+		<table>
 			<tr v-for="y in height">
 				<Tile v-for="x in width"
 						:y=y :x=x
-						:discovered=board[y-1][x-1].discovered
+						:discovered=game.board[y-1][x-1].discovered
 						@tileClicked="discoverTile">
 				</Tile>
 			</tr>
-		</table>-->
+		</table>
 
 		// TODO: state to preserve discovered tiles!<br/>
 		// TODO: diferent icons for ship or no ship<br/>
@@ -30,19 +30,26 @@
 		components: {
 			Tile
 		},
-		props: {
-			width: Number,
-			height: Number
-		},
 		computed: {
 			...mapState({
-				board: state => state
-			})
+				game: state => state
+			}),
+			width() {
+				return this.game.board[0].length
+			},
+			height() {
+				return this.game.board.length
+			}
 		},
 		methods: {
 			set: mapMutations(['set']).set,
 			discoverTile( payload ) {
-				this.board[payload.y-1][payload.x-1] = true;
+				let newboard = this.game.board;
+				newboard[payload.y-1][payload.x-1].discovered = true;
+
+				const steps = this.game.steps + 1;
+
+				this.set({board: newboard, steps: steps});
 			}
 		}
 	};

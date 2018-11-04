@@ -1,21 +1,23 @@
 <template>
   <div id="app">
     <h1>Sink the ship!</h1>
-    <Board :width=3 :height=3></Board>
+    <Board></Board>
   </div>
 </template>
 
 <script>
-import Board from './components/Board.vue';
+import Board from '../components/Board.vue';
 
+
+	import { createNamespacedHelpers } from 'vuex';
+	const boardStore = createNamespacedHelpers('board');
 
 export default {
-  name: 'gameBoard',
+  name: 'GameBoard',
   components: {
     Board
   },
   beforeRouteEnter(to, from, next) {
-
         const model = {
           board:  [
             [{ discovered: false, ship: false}, { discovered: false, ship: false}, { discovered: false, ship: false}],
@@ -26,10 +28,13 @@ export default {
         };
 
         next(vm => {
-          debugger
           vm.set(model);
         });
-    }
+    },
+    methods: {
+			set: boardStore.mapMutations(['set']).set
+		}
+
 }
 </script>
 
