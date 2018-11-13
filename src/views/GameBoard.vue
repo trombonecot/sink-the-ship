@@ -9,6 +9,7 @@
 import Board from '../components/Board.vue';
 
 
+  import { generate } from './BoardGenerator';
 	import { createNamespacedHelpers } from 'vuex';
 	const boardStore = createNamespacedHelpers('board');
 
@@ -19,12 +20,10 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
         const model = {
-          board:  [
-            [{ discovered: false, ship: false}, { discovered: false, ship: false}, { discovered: false, ship: false}],
-            [{ discovered: false, ship: true}, { discovered: false, ship: true}, { discovered: false, ship: false}],
-            [{ discovered: false, ship: false}, { discovered: false, ship: false}, { discovered: false, ship: false}]
-          ],
-          steps: 0
+          board: generate(10,10,10),
+          steps: 0,
+          ship: 0,
+          numShips: 10
         };
 
         next(vm => {

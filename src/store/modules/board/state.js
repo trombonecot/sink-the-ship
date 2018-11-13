@@ -1,4 +1,5 @@
 export default {
 	board: [],
-	steps: 0
+	steps: 0,
+	ships: 0
 };

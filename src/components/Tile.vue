@@ -1,6 +1,6 @@
 <template>
 	<td>
-		<div :class="tileClasses" v-on:click="onClicked">{{discovered}}</div>
+		<div :class="tileClasses" v-on:click="onClicked"></div>
 	</td>
 </template>
 
@@ -10,11 +10,11 @@
 			x: Number,
 			y: Number,
 			discovered: Boolean,
-			type: String
+			ship: Boolean
 		},
 		computed: {
 			tileClasses() {
-				return this.discovered ? "discovered" : "";
+				return this.discovered ? ( this.ship ?  "discovered ship" : "discovered" ) : "";
 			}
 		},
 		methods: {
@@ -33,10 +33,13 @@
 	div {
 		width: 30px;
 		height: 30px;
-		background: lightBlue;
+		background: lightgrey;
 		margin: 1px;
 	}
 	div.discovered {
+		background:blue;
+	}
+	div.discovered.ship {
 		background:red;
 	}
 </style>
